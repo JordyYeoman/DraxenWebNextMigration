@@ -53,8 +53,6 @@ const data = [
   },
 ];
 
-const API_KEY = process.env.API_KEY;
-
 const youtubeData = [
   {
     video: {
@@ -111,27 +109,61 @@ const youtubeData = [
 ];
 
 export default () => {
-  const [videos, setVideos] = useState();
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // const onFormSubmit = data => {
-  //   console.log(data);
-  // };
-  async function onFormSubmit(searchTerm) {
-    try {
-      const response = await youtube.get('search', {
+  const onFormSubmit = data => {
+    console.log(data);
+  };
+  // async function onFormSubmit(searchTerm) {
+  //   try {
+  //     const response = await youtube.get('search', {
+  //       params: {
+  //         part: 'snippet',
+  //         maxResults: 5,
+  //         key: `${process.env.API_KEY}`,
+  //         q: searchTerm,
+  //       },
+  //     });
+  //     setVideos(response.data.items);
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+  useEffect(() => {
+    console.log('hello punk');
+  });
+
+  useEffect(() => {
+    async function fetchYoutubeData() {
+      const response = await youtube.get('playlistItems', {
         params: {
           part: 'snippet',
-          maxResults: 5,
-          key: '',
-          q: searchTerm,
+          forUsername: 'Draxen',
+          playlistId: `${process.env.PLAYLIST_ID}`,
+          maxResults: 15,
+          key: `${process.env.API_KEY}`,
         },
       });
       setVideos(response.data.items);
-      console.log(videos.state[0]);
-    } catch (error) {
-      console.error(error);
     }
-  }
+    fetchYoutubeData();
+    setIsLoading(false);
+  }, []);
+
+  // Uploads ID
+  //UULQNIbJTpwBJfVbjB7bNZCw
+  // Channel ID
+  // UCLQNIbJTpwBJfVbjB7bNZCw
+
+  //  // https://www.googleapis.com/youtube/v3/playlistItems?
+  //  part=snippet%2C
+  //  //
+  //  contentDetails&
+  //  maxResults=25&
+  //  playlistId=UULQNIbJTpwBJfVbjB7bNZCw&
+  //  key=[YOUR_API_KEY]
 
   return (
     <div className="antialiased text-gray-900">
@@ -194,7 +226,8 @@ export default () => {
           </p>
           <div className="flex flex-wrap -mx-4">
             {youtubeData.map((youtubeInfo, index) => (
-              <YoutubeCardTwo youtubeInfo={youtubeInfo} key={index} />
+              // <YoutubeCardTwo youtubeInfo={youtubeInfo} key={index} />
+              <h1 key={index}>Hello</h1>
             ))}
           </div>
         </div>
@@ -206,7 +239,29 @@ export default () => {
             A selection of my top rated videos and content!
           </p>
           <SearchBar onFormSubmit={onFormSubmit} />
+
           <VideoDetail />
+          <div className="flex flex-wrap -mx-4">
+            {/* {videos.map((youtubeInfo, index) => (
+              <YoutubeCardTwo youtubeInfo={youtubeInfo} key={index} />
+            ))} */}
+            {/* {(videos || [1]).map((video, index) => {
+              //error occurs here
+              <YoutubeCardTwo videos={videos} key={index} />;
+            })} */}
+            {isLoading ? (
+              <h1>Loading</h1>
+            ) : (
+              (videos || [1]).map((video, index) => (
+                //error occurs here
+                //console.log(video.snippet.title);
+                //console.log(video.snippet.publishedAt);
+                //console.log(video.snippet.description);
+
+                <YoutubeCardTwo video={video} key={index} />
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

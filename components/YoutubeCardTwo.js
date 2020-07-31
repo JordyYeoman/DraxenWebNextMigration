@@ -8,7 +8,7 @@ const YoutubeCardTwo = props => {
         viewBox="0 0 24 24"
         key={i}
         className={
-          i <= props.youtubeInfo.video.rating - 1
+          i <= 5 - 1
             ? 'text-orange-500 w-4 h-4 fill-current'
             : 'text-gray-400 w-4 h-4 fill-current'
         }
@@ -20,38 +20,34 @@ const YoutubeCardTwo = props => {
 
   return (
     <div className="mt-6 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3">
-      <div className="px-4">
-        <div className="relative pb-2/3">
+      <div className="px-2">
+        <div className="relative pb-3/72">
           <img
             className="absolute top-0 h-full w-full object-cover rounded-lg shadow-md"
-            src={props.youtubeInfo.video.imageUrl}
-            alt={props.youtubeInfo.video.imageAlt}
+            src={props.video.snippet.thumbnails.high.url}
+            alt={props.video.snippet.description}
           />
         </div>
-        <div className="relative px-4 -mt-10">
+        <div className="relative px-4 -mt-8">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <div className="flex items-baseline">
               <span className="inline-block bg-orange-200 text-orange-600 text-xs px-2 rounded-full uppercase font-semibold tracking-wide">
                 New
               </span>
               <div className="ml-2 text-gray-600 text-xs uppercase font-semibold tracking-wide">
-                {props.youtubeInfo.video.beds} beds &bull;
-                {props.youtubeInfo.video.baths} baths
+                &bull; {props.video.snippet.publishedAt}
               </div>
             </div>
             <h4 className="mt-1 font-semibold text-lg leading-tight truncate">
-              {props.youtubeInfo.video.title}
+              {props.video.snippet.title}
             </h4>
             <div>
-              {props.youtubeInfo.video.formattedPrice}{' '}
-              <span className="text-gray-600 text-sm">/ wk</span>
+              1300 <span className="text-gray-600 text-sm">/ wk</span>
             </div>
             <div className="mt-2 flex items-center">
               {/* // Render out 5 stars and fill stars depending on rating. Eg - rating: 4 */}
               {stars}
-              <span className="text-gray-600 text-sm ml-2">
-                {props.youtubeInfo.video.reviewCount} reviews
-              </span>
+              <span className="text-gray-600 text-sm ml-2">10 reviews</span>
             </div>
           </div>
         </div>
