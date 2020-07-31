@@ -53,6 +53,8 @@ const data = [
   },
 ];
 
+const API_KEY = process.env.API_KEY;
+
 const youtubeData = [
   {
     video: {
