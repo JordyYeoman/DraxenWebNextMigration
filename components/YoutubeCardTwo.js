@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const YoutubeCardTwo = props => {
+  const [starAmount, setStarAmount] = useState(0);
+
   let stars = [];
   for (var i = 0; i <= 4; i++) {
     stars.push(
@@ -8,7 +10,7 @@ const YoutubeCardTwo = props => {
         viewBox="0 0 24 24"
         key={i}
         className={
-          i <= 5 - 1
+          i <= starAmount - 1
             ? 'text-orange-500 w-4 h-4 fill-current'
             : 'text-gray-400 w-4 h-4 fill-current'
         }
@@ -18,8 +20,21 @@ const YoutubeCardTwo = props => {
     );
   }
 
+  // Declare initial variable to then update for star rating
+
+  useEffect(() => {
+    // Calculate like/dislike percentage & convert to star rating
+    const likes = parseInt(props.stats.statistics.likeCount);
+    const dislikes = parseInt(props.stats.statistics.dislikeCount);
+    const ratio = Math.floor((likes / (likes + dislikes)) * 100);
+    const rounded = Math.ceil(ratio / 10) * 10;
+    const halved = Math.floor(rounded / 2);
+    const starCount = Math.floor(halved / 10);
+    setStarAmount(starCount);
+  }, []);
+
   return (
-    <div className="mt-6 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3">
+    <div className="mt-6 w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3">
       <div className="px-2">
         <div className="relative pb-3/72">
           <img
@@ -42,12 +57,15 @@ const YoutubeCardTwo = props => {
               {props.video.snippet.title}
             </h4>
             <div>
-              1300 <span className="text-gray-600 text-sm">/ wk</span>
+              {props.stats.statistics.viewCount}
+              <span className="text-gray-600 text-sm"> views</span>
             </div>
             <div className="mt-2 flex items-center">
               {/* // Render out 5 stars and fill stars depending on rating. Eg - rating: 4 */}
               {stars}
-              <span className="text-gray-600 text-sm ml-2">10 reviews</span>
+              <span className="text-gray-600 text-sm ml-2">
+                {props.stats.statistics.commentCount} comments
+              </span>
             </div>
           </div>
         </div>

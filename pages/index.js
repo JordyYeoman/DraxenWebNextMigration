@@ -110,6 +110,7 @@ const youtubeData = [
 
 export default () => {
   const [videos, setVideos] = useState([]);
+  const [videoStats, setVideoStats] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const onFormSubmit = data => {
@@ -136,21 +137,43 @@ export default () => {
   });
 
   useEffect(() => {
-    async function fetchYoutubeData() {
+    const videoIds = [];
+    const numVidsRequested = 15;
+    let i;
+
+    (async function fetchYoutubeData() {
       const response = await youtube.get('playlistItems', {
         params: {
           part: 'snippet',
           forUsername: 'Draxen',
           playlistId: `${process.env.PLAYLIST_ID}`,
-          maxResults: 15,
+          maxResults: numVidsRequested,
           key: `${process.env.API_KEY}`,
         },
       });
       setVideos(response.data.items);
-    }
-    fetchYoutubeData();
-    setIsLoading(false);
+
+      // Collect all of the video ids from youtube vids
+      for (i = 0; i < numVidsRequested; i++) {
+        videoIds.push(response.data.items[i].snippet.resourceId.videoId);
+      }
+
+      // Request stats on each of the videos
+      const response2 = await youtube.get('videos', {
+        params: {
+          part: 'statistics',
+          id: `${videoIds.join(',')}`,
+          key: `${process.env.API_KEY}`,
+        },
+      });
+      // Update the state variables with the requested video stats
+      setVideoStats(response2.data.items);
+      setIsLoading(false);
+    })();
   }, []);
+
+  // DgWKf3GVSgM
+  // video id for toxic thresh = DgWKf3GVSgM
 
   // Uploads ID
   //UULQNIbJTpwBJfVbjB7bNZCw
@@ -258,7 +281,11 @@ export default () => {
                 //console.log(video.snippet.publishedAt);
                 //console.log(video.snippet.description);
 
-                <YoutubeCardTwo video={video} key={index} />
+                <YoutubeCardTwo
+                  video={video}
+                  stats={videoStats[index]}
+                  key={index}
+                />
               ))
             )}
           </div>
