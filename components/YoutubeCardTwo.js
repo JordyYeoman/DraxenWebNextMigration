@@ -2,6 +2,32 @@ import React, { useEffect, useState } from 'react';
 
 const YoutubeCardTwo = props => {
   const [starAmount, setStarAmount] = useState(0);
+  const [overTwoWeeks, setOverTwoWeeks] = useState(false);
+
+  //Convert publishedAt (ISO 8601) date to a more readable format
+  let publishedDate = props.video.snippet.publishedAt;
+  var p = new Date(publishedDate);
+
+  let formattedDate = p.toLocaleDateString('en-AU');
+
+  // Check if date is within two weeks of upload/published date.
+  let currentDate = props.currentDate.toISOString();
+  var c = new Date(currentDate);
+
+  let diff = c - p;
+
+  // if (diff <= 12096e5) {
+  //   setOverTwoWeeks(false);
+  //   console.log('Less than two weeks');
+  // } else {
+  //   setOverTwoWeeks(true);
+  //   console.log('Old ass video');
+  // }
+
+  //console.log(Math.floor(diff / 1e3), 'seconds ago');
+  // var fortnightPrevious = new Date(Date.now() - 12096e5);
+
+  // let formattedCurrentDate = currentDate.toISOString();
 
   let stars = [];
   for (var i = 0; i <= 4; i++) {
@@ -30,6 +56,11 @@ const YoutubeCardTwo = props => {
     const rounded = Math.ceil(ratio / 10) * 10;
     const halved = Math.floor(rounded / 2);
     const starCount = Math.floor(halved / 10);
+    if (diff <= 12096e5) {
+      setOverTwoWeeks(false);
+    } else {
+      setOverTwoWeeks(true);
+    }
     setStarAmount(starCount);
   }, []);
 
@@ -46,11 +77,15 @@ const YoutubeCardTwo = props => {
         <div className="relative px-4 -mt-8">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <div className="flex items-baseline">
-              <span className="inline-block bg-orange-200 text-orange-600 text-xs px-2 rounded-full uppercase font-semibold tracking-wide">
-                New
-              </span>
-              <div className="ml-2 text-gray-600 text-xs uppercase font-semibold tracking-wide">
-                &bull; {props.video.snippet.publishedAt}
+              {overTwoWeeks ? (
+                <span></span>
+              ) : (
+                <span className="mr-2 inline-block bg-orange-200 text-orange-600 text-xs px-2 rounded-full uppercase font-semibold tracking-wide">
+                  New
+                </span>
+              )}
+              <div className="text-gray-600 text-xs uppercase font-semibold tracking-wide">
+                {formattedDate}
               </div>
             </div>
             <h4 className="mt-1 font-semibold text-lg leading-tight truncate">

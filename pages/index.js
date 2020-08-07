@@ -112,6 +112,7 @@ export default () => {
   const [videos, setVideos] = useState([]);
   const [videoStats, setVideoStats] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  let currentDate = new Date();
 
   const onFormSubmit = data => {
     console.log(data);
@@ -168,6 +169,7 @@ export default () => {
       });
       // Update the state variables with the requested video stats
       setVideoStats(response2.data.items);
+
       setIsLoading(false);
     })();
   }, []);
@@ -228,42 +230,16 @@ export default () => {
           />
         </div>
       </div>
-      <div>
-        <div className="max-w-md sm:max-w-xl md:max-w-4xl lg:max-w-6xl mx-auto px-8 lg:px-12 py-8">
-          <h2 className="text-xl text-gray-900">Popular videos</h2>
-          <p className="text-gray-600">
-            A selection of my top rated videos and content!
-          </p>
-          <div className="flex flex-wrap -mx-4">
-            {data.map((card, index) => (
-              <YoutubeCard card={card} key={index} />
-            ))}
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className="max-w-md sm:max-w-xl md:max-w-4xl lg:max-w-6xl mx-auto px-8 lg:px-12 py-8">
-          <h2 className="text-xl text-gray-900">Popular videos</h2>
-          <p className="text-gray-600">
-            A selection of my top rated videos and content!
-          </p>
-          <div className="flex flex-wrap -mx-4">
-            {youtubeData.map((youtubeInfo, index) => (
-              // <YoutubeCardTwo youtubeInfo={youtubeInfo} key={index} />
-              <h1 key={index}>Hello</h1>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className="max-w-md sm:max-w-xl md:max-w-4xl lg:max-w-6xl mx-auto px-8 lg:px-12 py-8">
-          <h2 className="text-xl text-gray-900">Popular videos</h2>
-          <p className="text-gray-600">
-            A selection of my top rated videos and content!
-          </p>
-          <SearchBar onFormSubmit={onFormSubmit} />
 
-          <VideoDetail />
+      <div>
+        <div className="max-w-md sm:max-w-xl md:max-w-4xl lg:max-w-6xl mx-auto px-8 lg:px-12 py-8">
+          <h2 className="text-xl text-gray-900">Latest videos</h2>
+          <p className="text-gray-600">
+            A selection of my latest videos and content!
+          </p>
+          {/* <SearchBar onFormSubmit={onFormSubmit} /> */}
+
+          {/* <VideoDetail /> */}
           <div className="flex flex-wrap -mx-4">
             {/* {videos.map((youtubeInfo, index) => (
               <YoutubeCardTwo youtubeInfo={youtubeInfo} key={index} />
@@ -285,12 +261,26 @@ export default () => {
                   video={video}
                   stats={videoStats[index]}
                   key={index}
+                  currentDate={currentDate}
                 />
               ))
             )}
           </div>
         </div>
       </div>
+      {/* <div>
+        <div className="max-w-md sm:max-w-xl md:max-w-4xl lg:max-w-6xl mx-auto px-8 lg:px-12 py-8">
+          <h2 className="text-xl text-gray-900">Popular videos</h2>
+          <p className="text-gray-600">
+            A selection of my top rated videos and content!
+          </p>
+          <div className="flex flex-wrap -mx-4">
+            {data.map((card, index) => (
+              <YoutubeCard card={card} key={index} />
+            ))}
+          </div>
+        </div>
+      </div> */}
     </div>
   );
 };
