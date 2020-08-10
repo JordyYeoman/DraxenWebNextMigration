@@ -13,21 +13,7 @@ const YoutubeCardTwo = props => {
   // Check if date is within two weeks of upload/published date.
   let currentDate = props.currentDate.toISOString();
   var c = new Date(currentDate);
-
   let diff = c - p;
-
-  // if (diff <= 12096e5) {
-  //   setOverTwoWeeks(false);
-  //   console.log('Less than two weeks');
-  // } else {
-  //   setOverTwoWeeks(true);
-  //   console.log('Old ass video');
-  // }
-
-  //console.log(Math.floor(diff / 1e3), 'seconds ago');
-  // var fortnightPrevious = new Date(Date.now() - 12096e5);
-
-  // let formattedCurrentDate = currentDate.toISOString();
 
   let stars = [];
   for (var i = 0; i <= 4; i++) {
@@ -71,7 +57,7 @@ const YoutubeCardTwo = props => {
           <img
             className="absolute top-0 h-full w-full object-cover rounded-lg shadow-md"
             src={props.video.snippet.thumbnails.high.url}
-            alt={props.video.snippet.description}
+            alt={props.video.snippet.title}
           />
         </div>
         <div className="relative px-4 -mt-8">

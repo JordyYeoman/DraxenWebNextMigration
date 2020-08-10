@@ -142,12 +142,14 @@ export default () => {
     const numVidsRequested = 15;
     let i;
 
+    //${process.env.PLAYLIST_ID2}
+
     (async function fetchYoutubeData() {
       const response = await youtube.get('playlistItems', {
         params: {
           part: 'snippet',
           forUsername: 'Draxen',
-          playlistId: `${process.env.PLAYLIST_ID}`,
+          playlistId: `PLrpeKCiUFSvM8EbXrTB0AAHl9vX5SaArG`,
           maxResults: numVidsRequested,
           key: `${process.env.API_KEY}`,
         },
@@ -207,13 +209,14 @@ export default () => {
             />
             <h1 className="text-2xl font-bold text-gray-900 leading-tight sm:text-4xl sm:mt-8">
               Dominate every region.<br></br>
-              <span className="text-orange-400">Take advantage of it.</span>
+              <span className="text-orange-400">Play Draven.</span>
             </h1>
 
             <p className="mt-2 text-gray-600 sm:text-xl">
               I hope you enjoy all of my content, go forth and destroy each and
-              every scrub in your region.
+              every scrub in your area.
             </p>
+
             <div className="mt-4 sm:mt-6">
               <a href="#" className="btn shadow-lg text-base">
                 Book your lesson
