@@ -12,9 +12,9 @@ export default () => {
   const [isLoading, setIsLoading] = useState(true);
   let currentDate = new Date();
 
-  const onFormSubmit = data => {
-    console.log(data);
-  };
+  // const onFormSubmit = data => {
+  //   console.log(data);
+  // };
   // async function onFormSubmit(searchTerm) {
   //   try {
   //     const response = await youtube.get('search', {
@@ -47,7 +47,7 @@ export default () => {
         params: {
           part: 'snippet',
           forUsername: 'Draxen',
-          playlistId: `PLrpeKCiUFSvM8EbXrTB0AAHl9vX5SaArG`,
+          playlistId: `${process.env.NEXT_PUBLIC_PLAYLIST_ID}`,
           maxResults: numVidsRequested,
           key: `${process.env.API_KEY}`,
         },
