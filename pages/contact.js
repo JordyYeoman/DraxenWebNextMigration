@@ -40,9 +40,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="m-auto flex flex-col items-center  justify-center mt-20 pb-20">
+    <div className="m-auto flex flex-col items-center  justify-center md:mt-20 pb-20">
       <div class="w-full flex justify-center md:w-3/5 lg:w-2/5 py-6 text-center">
-        <img class="w-2/3 z-50" src="/assets/draxenlogowtxt.png" />
+        <img
+          class="w-2/3 z-50 h-32 sm:h-auto"
+          src="/assets/draxenlogowtxt.png"
+        />
       </div>
       <form className="w-5/6 md:w-full max-w-lg" onSubmit={subscribe}>
         <div className="flex flex-wrap -mx-3 mb-6">

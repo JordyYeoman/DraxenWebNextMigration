@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
         <meta charSet="utf-8" />
       </Head>
       <Navigation />
-      <div className="content-wrapper">{children}</div>
+      <div className="content-wrapper pb-8 sm:pb-0">{children}</div>
       <Footer />
     </div>
   );

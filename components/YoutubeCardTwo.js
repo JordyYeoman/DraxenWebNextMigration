@@ -4,6 +4,8 @@ const YoutubeCardTwo = props => {
   const [starAmount, setStarAmount] = useState(0);
   const [overTwoWeeks, setOverTwoWeeks] = useState(false);
 
+  const youtubeVidUrl = `https://www.youtube.com/watch?v=${props.stats.id}`;
+
   //Convert publishedAt (ISO 8601) date to a more readable format
   let publishedDate = props.video.snippet.publishedAt;
   var p = new Date(publishedDate);
@@ -52,45 +54,47 @@ const YoutubeCardTwo = props => {
 
   return (
     <div className="mt-6 w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3">
-      <div className="px-2">
-        <div className="relative pb-3/72">
-          <img
-            className="absolute top-0 h-full w-full object-cover rounded-lg shadow-md"
-            src={props.video.snippet.thumbnails.high.url}
-            alt={props.video.snippet.title}
-          />
-        </div>
-        <div className="relative px-4 -mt-8">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <div className="flex items-baseline">
-              {overTwoWeeks ? (
-                <span></span>
-              ) : (
-                <span className="mr-2 inline-block bg-orange-200 text-orange-600 text-xs px-2 rounded-full uppercase font-semibold tracking-wide">
-                  New
-                </span>
-              )}
-              <div className="text-gray-600 text-xs uppercase font-semibold tracking-wide">
-                {formattedDate}
+      <a href={youtubeVidUrl} target="_blank" rel="noopener noreferrer">
+        <div className="px-2">
+          <div className="relative pb-3/72">
+            <img
+              className="absolute top-0 h-full w-full object-cover rounded-lg shadow-md"
+              src={props.video.snippet.thumbnails.high.url}
+              alt={props.video.snippet.title}
+            />
+          </div>
+          <div className="relative px-4 -mt-8">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="flex items-baseline">
+                {overTwoWeeks ? (
+                  <span></span>
+                ) : (
+                  <span className="mr-2 inline-block bg-orange-200 text-orange-600 text-xs px-2 rounded-full uppercase font-semibold tracking-wide">
+                    New
+                  </span>
+                )}
+                <div className="text-gray-600 text-xs uppercase font-semibold tracking-wide">
+                  {formattedDate}
+                </div>
               </div>
-            </div>
-            <h4 className="mt-1 font-semibold text-lg leading-tight truncate">
-              {props.video.snippet.title}
-            </h4>
-            <div>
-              {props.stats.statistics.viewCount}
-              <span className="text-gray-600 text-sm"> views</span>
-            </div>
-            <div className="mt-2 flex items-center">
-              {/* // Render out 5 stars and fill stars depending on rating. Eg - rating: 4 */}
-              {stars}
-              <span className="text-gray-600 text-sm ml-2">
-                {props.stats.statistics.commentCount} comments
-              </span>
+              <h4 className="mt-1 font-semibold text-lg leading-tight truncate">
+                {props.video.snippet.title}
+              </h4>
+              <div>
+                {props.stats.statistics.viewCount}
+                <span className="text-gray-600 text-sm"> views</span>
+              </div>
+              <div className="mt-2 flex items-center">
+                {/* // Render out 5 stars and fill stars depending on rating. Eg - rating: 4 */}
+                {stars}
+                <span className="text-gray-600 text-sm ml-2">
+                  {props.stats.statistics.commentCount} comments
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 };

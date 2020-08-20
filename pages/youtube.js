@@ -84,7 +84,7 @@ export default () => {
 
             <div className="mt-4 sm:mt-6">
               <a href="#" className="btn shadow-lg text-base">
-                Book your lesson
+                Join the team.
               </a>
             </div>
           </div>
